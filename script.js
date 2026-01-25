@@ -410,9 +410,9 @@ summary = df.groupby(['provinsi', 'kabupaten']).agg({
 
         // Key metrics cards
         keyMetrics: [
-            { label: 'Total Laporan', value: '10,095', icon: '📋' },
-            { label: 'Total Permohonan', value: '6,439', icon: '📝' },
-            { label: 'Rata-rata Indeks', value: '100.10', icon: '📊' },
+            { label: 'Total Reports', value: '10,095', icon: '📋' },
+            { label: 'Total Requests', value: '6,439', icon: '📝' },
+            { label: 'Average Index', value: '100.10', icon: '📊' },
             { label: 'Dashboards Built', value: '2', icon: '📈' }
         ],
 
@@ -522,7 +522,22 @@ ORDER BY jumlah_laporan DESC;`
             <li><strong>Duplicates lurking</strong> — 100 duplicate rows hiding in the data</li>
             <li><strong>Outliers causing trouble</strong> — especially in fare and family size</li>
             <li><strong>Mixed data types</strong> — categorical features that needed encoding</li>
-        </ul>`,
+        </ul>
+        
+        <div class="code-block" style="margin-top: 16px;">
+            <div class="code-header"><span class="code-lang">PYTHON</span> Import Libraries</div>
+            <pre><code>import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import scipy.stats as scp
+
+from sklearn.preprocessing import LabelEncoder, Normalizer, StandardScaler
+
+# Load data
+titanic1 = pd.read_csv('data_titanic1.csv')
+print("data: ", titanic1.shape)  # Output: (900, 14)</code></pre>
+        </div>`,
 
         task: `<p>My job was to go through the <strong>full preprocessing pipeline</strong>:</p>
         <ol style="margin-top: 8px; margin-left: 20px;">
@@ -530,11 +545,29 @@ ORDER BY jumlah_laporan DESC;`
             <li><strong>Clean things up</strong> — handle missing values, remove duplicates, fix outliers</li>
             <li><strong>Run statistical tests</strong> — figure out which features actually matter for survival</li>
             <li><strong>Prepare for ML</strong> — encode categories, normalize values, split features</li>
-        </ol>`,
+        </ol>
+        
+        <div class="code-block" style="margin-top: 16px;">
+            <div class="code-header"><span class="code-lang">PYTHON</span> Check Missing Values</div>
+            <pre><code># Custom function to check null values
+def cek_null(df):
+    col_na = df.isnull().sum().sort_values(ascending=False)
+    percent = col_na / len(df)
+    missing_data = pd.concat([col_na, percent], axis=1, keys=['Total', 'Percent'])
+    print(missing_data[missing_data['Total'] > 0])
 
-        // Code snippet
+cek_null(merged_titanic)
+# Output:
+# body        1188  0.907563
+# cabin       1014  0.774637
+# boat         823  0.628724
+# home.dest    564  0.430863
+# age          263  0.200917</code></pre>
+        </div>`,
+
+        // Code snippet for outlier detection
         codeSnippet: {
-            title: 'Outlier Detection using IQR',
+            title: 'Outlier Detection using IQR Method',
             language: 'python',
             code: `# Sorting and calculating quartiles
 sorted_data = merged_titanic.sort_values(by=['fare'])
@@ -555,15 +588,162 @@ def detect_outliers(data):
     return outliers
 
 fare_outliers = detect_outliers(sorted_data.fare)
-print(len(fare_outliers))  # Output: 171 outliers`
+print(len(fare_outliers))  # Output: 171 outliers
+
+# Remove outliers
+removal_outlier = sorted_data.loc[
+    (sorted_data.fare > lower_limit) & 
+    (sorted_data.fare < upper_limit)
+]`
         },
 
         dataProcessing: [
-            '<strong>Data Exploration:</strong> Loaded 1,309 passenger records with 14 features. Used <code>describe()</code> and <code>info()</code> to understand the data profile — found that fare had crazy high std dev compared to mean',
-            '<strong>Duplicate Removal:</strong> Merged two datasets and found <strong>100 duplicate rows</strong>. Dropped them using <code>drop_duplicates()</code> to avoid bias in analysis',
-            '<strong>Missing Value Treatment:</strong> Age → filled with median, Embarked → filled with mode ("C"), Boat → filled with "None", and dropped columns with >70% missing (body, cabin)',
-            '<strong>Outlier Detection:</strong> Applied IQR method to numerical features. Found <strong>171 outliers in fare</strong> alone — passengers who paid way more than usual (likely first-class suites)',
-            '<strong>Feature Engineering:</strong> Dropped non-predictive columns (name, ticket, home.dest). Applied LabelEncoder to categorical features (sex, embarked, boat) for ML readiness'
+            `<strong>Step 1: Merge & Check Duplicates</strong>
+            <p style="margin: 8px 0; color: #94a3b8;">Merge two datasets and check for duplicate rows.</p>
+            <div class="code-block" style="margin-top: 8px;">
+                <div class="code-header"><span class="code-lang">PYTHON</span></div>
+                <pre><code># Merge two dataframes
+frames = [titanic1, titanic2]
+merged_titanic = pd.concat(frames).reset_index(drop=True)
+
+# Check duplicates
+merged_titanic.duplicated(keep=False).sum()</code></pre>
+            </div>
+            <div class="code-output" style="background: #1e293b; border-left: 3px solid #22c55e; padding: 12px; margin-top: 8px; border-radius: 4px;">
+                <span style="color: #22c55e; font-weight: 600;">OUTPUT:</span>
+                <pre style="margin: 8px 0 0 0; color: #e2e8f0;">100</pre>
+                <p style="color: #94a3b8; margin-top: 8px; font-size: 13px;">→ Found 100 duplicate rows! Need to drop these to avoid bias.</p>
+            </div>
+            <div class="code-block" style="margin-top: 12px;">
+                <div class="code-header"><span class="code-lang">PYTHON</span></div>
+                <pre><code># Drop duplicates
+merged_titanic = merged_titanic.drop_duplicates()
+merged_titanic.duplicated(keep=False).sum()</code></pre>
+            </div>
+            <div class="code-output" style="background: #1e293b; border-left: 3px solid #22c55e; padding: 12px; margin-top: 8px; border-radius: 4px;">
+                <span style="color: #22c55e; font-weight: 600;">OUTPUT:</span>
+                <pre style="margin: 8px 0 0 0; color: #e2e8f0;">0</pre>
+                <p style="color: #94a3b8; margin-top: 8px; font-size: 13px;">✓ All duplicates removed!</p>
+            </div>`,
+
+            `<strong>Step 2: Handle Missing Values</strong>
+            <p style="margin: 8px 0; color: #94a3b8;">Fill missing values with appropriate strategy for each column.</p>
+            <div class="code-block" style="margin-top: 8px;">
+                <div class="code-header"><span class="code-lang">PYTHON</span></div>
+                <pre><code># Fill age with median
+col = ["age"]
+for c in col:
+    median = titanic_cleaned[~titanic_cleaned.isna()].median()[0]
+    titanic_cleaned[c] = titanic_cleaned[c].fillna(median)
+
+# Fill embarked with mode 'C'
+titanic_cleaned["embarked"] = titanic_cleaned["embarked"].fillna('C')
+
+# Fill boat with 'None'
+titanic_cleaned['boat'] = titanic_cleaned['boat'].fillna('None')</code></pre>
+            </div>
+            <div class="code-output" style="background: #1e293b; border-left: 3px solid #22c55e; padding: 12px; margin-top: 8px; border-radius: 4px;">
+                <span style="color: #22c55e; font-weight: 600;">RESULT:</span>
+                <pre style="margin: 8px 0 0 0; color: #e2e8f0;">age      → filled with median (31.0)
+embarked → filled with 'C' (Cherbourg port)
+boat     → filled with 'None' (no lifeboat)</pre>
+                <p style="color: #94a3b8; margin-top: 8px; font-size: 13px;">→ Using median for age because it's robust to outliers.</p>
+            </div>
+            <div class="code-block" style="margin-top: 12px;">
+                <div class="code-header"><span class="code-lang">PYTHON</span></div>
+                <pre><code># Drop columns with >70% missing
+titanic_cleaned = merged_titanic.drop(
+    ['name', 'ticket', 'body', 'cabin', 'home.dest'], axis=1
+)
+titanic_cleaned.shape</code></pre>
+            </div>
+            <div class="code-output" style="background: #1e293b; border-left: 3px solid #22c55e; padding: 12px; margin-top: 8px; border-radius: 4px;">
+                <span style="color: #22c55e; font-weight: 600;">OUTPUT:</span>
+                <pre style="margin: 8px 0 0 0; color: #e2e8f0;">(1308, 9)</pre>
+                <p style="color: #94a3b8; margin-top: 8px; font-size: 13px;">→ Reduced from 14 to 9 columns. Dropped columns with >70% missing or non-predictive.</p>
+            </div>`,
+
+            `<strong>Step 3: Statistical Testing (Chi-Square)</strong>
+            <p style="margin: 8px 0; color: #94a3b8;">Test if there's a significant relationship between passenger class and survival.</p>
+            <div class="code-block" style="margin-top: 8px;">
+                <div class="code-header"><span class="code-lang">PYTHON</span></div>
+                <pre><code># Chi-square test function
+def compute_freq_chi2(x, y):
+    freqtab = pd.crosstab(x, y)
+    print("Frequency table")
+    print(freqtab)
+    chi2, pval, dof, expected = scp.chi2_contingency(freqtab)
+    print("ChiSquare test statistic: ", chi2)
+    print("p-value: ", pval)
+
+# Test: survived vs pclass
+compute_freq_chi2(titanic1.survived, titanic1.pclass)</code></pre>
+            </div>
+            <div class="code-output" style="background: #1e293b; border-left: 3px solid #f59e0b; padding: 12px; margin-top: 8px; border-radius: 4px;">
+                <span style="color: #f59e0b; font-weight: 600;">OUTPUT:</span>
+                <pre style="margin: 8px 0 0 0; color: #e2e8f0;">Frequency table
+pclass       1    2    3
+survived                 
+0          123  158  222
+1          200  119   78
+
+ChiSquare test statistic: 81.61469423204498
+p-value: 1.894935039255057e-18</pre>
+                <p style="color: #f59e0b; margin-top: 8px; font-size: 13px;">🔥 p-value < 0.001 = SUPER SIGNIFICANT! Passenger class strongly affects survival rate. First class had highest survival (200 survived vs 123 didn't).</p>
+            </div>`,
+
+            `<strong>Step 4: Label Encoding for Categorical Features</strong>
+            <p style="margin: 8px 0; color: #94a3b8;">Convert categorical data (text) to numeric for ML algorithms.</p>
+            <div class="code-block" style="margin-top: 8px;">
+                <div class="code-header"><span class="code-lang">PYTHON</span></div>
+                <pre><code># Encode categorical columns to numeric
+col = titanic_cleaned.select_dtypes(include=["object"]).columns
+
+for c in col:
+    if len(titanic_cleaned[c].value_counts()) <= 28:
+        le = LabelEncoder()
+        le.fit(list(titanic_cleaned[c].values))
+        titanic_cleaned[c] = le.transform(list(titanic_cleaned[c].values))
+
+titanic_cleaned.head()</code></pre>
+            </div>
+            <div class="code-output" style="background: #1e293b; border-left: 3px solid #22c55e; padding: 12px; margin-top: 8px; border-radius: 4px;">
+                <span style="color: #22c55e; font-weight: 600;">OUTPUT:</span>
+                <pre style="margin: 8px 0 0 0; color: #e2e8f0;">   pclass  survived  sex    age  sibsp  parch     fare  embarked  boat
+0       1         1    0  29.00      0      0  211.337         2    11
+1       1         1    1   0.92      1      2  151.550         2     2
+2       1         0    0   2.00      1      2  151.550         2    27
+3       1         0    1  30.00      1      2  151.550         2    27</pre>
+                <p style="color: #94a3b8; margin-top: 8px; font-size: 13px;">→ sex: female=0, male=1 | embarked: C=0, Q=1, S=2 | boat: encoded by number</p>
+            </div>`,
+
+            `<strong>Step 5: Normalization with MinMaxScaler</strong>
+            <p style="margin: 8px 0; color: #94a3b8;">Scale all features to 0-1 range so no single feature dominates.</p>
+            <div class="code-block" style="margin-top: 8px;">
+                <div class="code-header"><span class="code-lang">PYTHON</span></div>
+                <pre><code>from sklearn.preprocessing import MinMaxScaler
+
+# Separate target and predictors
+X = titanic_cleaned.drop('survived', axis=1)
+Y = titanic_cleaned['survived']
+
+# Apply MinMax scaling
+scaler = MinMaxScaler()
+scaled = scaler.fit_transform(X)
+X = pd.DataFrame(scaled)
+
+X.describe()</code></pre>
+            </div>
+            <div class="code-output" style="background: #1e293b; border-left: 3px solid #22c55e; padding: 12px; margin-top: 8px; border-radius: 4px;">
+                <span style="color: #22c55e; font-weight: 600;">OUTPUT:</span>
+                <pre style="margin: 8px 0 0 0; color: #e2e8f0;">              0         1         2         3    ...
+count  1308.00  1308.00  1308.00  1308.00  ...
+mean      0.65     0.64     0.30     0.06  ...
+std       0.42     0.48     0.21     0.10  ...
+min       0.00     0.00     0.00     0.00  ...
+max       1.00     1.00     1.00     1.00  ...</pre>
+                <p style="color: #94a3b8; margin-top: 8px; font-size: 13px;">✓ All features now in 0-1 range. Data is ready for ML model training!</p>
+            </div>`
         ],
 
         // Research findings - Chi-square test results
@@ -575,11 +755,6 @@ print(len(fare_outliers))  # Output: 171 outliers`
                 { percentage: '81.6', label: 'Chi² statistic (class vs survival)' },
                 { percentage: '28.1', label: 'Chi² statistic (embarked vs survival)' },
                 { percentage: '-0.30', label: 'Pearson correlation (class vs survival)' }
-            ],
-            quotes: [
-                '"Penumpang kelas 3 yang tidak survive mencapai 500 orang lebih"',
-                '"Southampton passengers had the lowest survival rate"',
-                '"Women and children first — the data shows it clearly"'
             ]
         },
 
@@ -587,8 +762,7 @@ print(len(fare_outliers))  # Output: 171 outliers`
             '<strong>Exploratory Data Analysis:</strong> Created count plots for categorical variables (pclass, sex, survived, embarked). Found that Class 3 had the most passengers but lowest survival rate — the "women and children first" policy was very real',
             '<strong>Statistical Testing:</strong> Ran Chi-square tests to check relationships. <strong>Pclass vs survival: χ² = 81.6, p < 0.001</strong> — super significant! Also found that Southampton (S) embarkation port had the most casualties',
             '<strong>Correlation Analysis:</strong> Built Pearson correlation matrix for numeric features. <strong>Fare positively correlated with survival (0.25)</strong> — money did help your chances on the Titanic',
-            '<strong>Outlier Handling:</strong> Used IQR and Z-score methods to detect outliers. Created boxplots to visualize — fare had the most extreme values. Documented options: drop, cap, or leave based on context',
-            '<strong>Normalization:</strong> Applied MinMaxScaler to bring all features to 0-1 range. This step is crucial for distance-based ML algorithms that would come next',
+            '<strong>Boxplot Visualization:</strong> Created boxplots to visualize outliers across all numeric features. Fare had the most extreme outliers — some passengers paid 500+ while median was around 24',
             '<strong>Final Dataset:</strong> Cleaned data reduced from 1,309 to <strong>1,308 rows</strong> and from 14 to <strong>9 features</strong>. All columns non-null and ready for model training'
         ],
 
@@ -621,7 +795,25 @@ print(len(fare_outliers))  # Output: 171 outliers`
             <li>Southampton port had the most casualties (but also most passengers)</li>
             <li>Proper preprocessing is 80% of the work in any ML project</li>
         </ul>
-        <p style="margin-top: 12px;"><strong>Tools Used:</strong> Python, Pandas, NumPy, Matplotlib, Seaborn, Scipy, Scikit-learn (LabelEncoder, MinMaxScaler)</p>`
+        <p style="margin-top: 12px;"><strong>Tools Used:</strong> Python, Pandas, NumPy, Matplotlib, Seaborn, Scipy, Scikit-learn (LabelEncoder, MinMaxScaler)</p>
+        
+        <div class="code-block" style="margin-top: 16px;">
+            <div class="code-header"><span class="code-lang">PYTHON</span> Final Dataset Info</div>
+            <pre><code>titanic_cleaned.info()
+# <class 'pandas.core.frame.DataFrame'>
+# Int64Index: 1308 entries, 0 to 1308
+# Data columns (total 9 columns):
+#  0   pclass     1308 non-null  int64
+#  1   survived   1308 non-null  int64
+#  2   sex        1308 non-null  int64
+#  3   age        1308 non-null  float64
+#  4   sibsp      1308 non-null  int64
+#  5   parch      1308 non-null  int64
+#  6   fare       1308 non-null  float64
+#  7   embarked   1308 non-null  int64
+#  8   boat       1308 non-null  int64
+# memory usage: 102.2 KB ✓</code></pre>
+        </div>`
     }
 };
 
