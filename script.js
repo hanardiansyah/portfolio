@@ -932,7 +932,12 @@ function openModal(project) {
                 <span class="finding-label">${f.label}</span>
             </div>
         `).join('');
-        const quotesItems = rf.quotes.map(q => `<div class="user-quote">${q}</div>`).join('');
+        const quotesItems = rf.quotes ? rf.quotes.map(q => `<div class="user-quote">${q}</div>`).join('') : '';
+        const quotesSection = quotesItems ? `
+                <div class="user-quotes">
+                    <div class="quotes-title">User Quotes:</div>
+                    ${quotesItems}
+                </div>` : '';
         researchFindingsHtml = `
         <div class="modal-section visual-section">
             <h4>🔬 ${rf.title}</h4>
@@ -942,10 +947,7 @@ function openModal(project) {
                     <div class="main-label">${rf.mainLabel}</div>
                 </div>
                 <div class="findings-breakdown">${findingsItems}</div>
-                <div class="user-quotes">
-                    <div class="quotes-title">User Quotes:</div>
-                    ${quotesItems}
-                </div>
+                ${quotesSection}
             </div>
         </div>`;
     }
