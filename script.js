@@ -491,6 +491,137 @@ ORDER BY jumlah_laporan DESC;`
             <li>Enabled proactive SLA monitoring instead of reactive reporting</li>
             <li>Provided leadership with real-time visibility into service performance</li>
         </ul>`
+    },
+    'titanic-survival': {
+        icon: '🚢',
+        title: 'Titanic Survival Analysis & Preprocessing',
+        tags: ['Python', 'Pandas', 'Seaborn', 'Scikit-learn', 'Statistical Analysis', 'Data Cleaning'],
+
+        // Key metrics cards
+        keyMetrics: [
+            { label: 'Total Passengers', value: '1,309', icon: '👥' },
+            { label: 'Survival Rate', value: '44.1%', icon: '📊' },
+            { label: 'Features Cleaned', value: '14 → 9', icon: '🧹' },
+            { label: 'Outliers Detected', value: '171', icon: '⚠️' }
+        ],
+
+        // Survival funnel chart
+        funnelChart: {
+            title: 'Survival Distribution by Passenger Class',
+            stages: [
+                { name: 'Class 1 (Upper)', value: 100, users: '200 survived', color: '#6366f1' },
+                { name: 'Class 2 (Middle)', value: 59.5, users: '119 survived', color: '#8b5cf6' },
+                { name: 'Class 3 (Lower)', value: 39, users: '78 survived', color: '#a855f7' }
+            ]
+        },
+
+        situation: `<p>This was a hands-on data preprocessing project from the <strong>ToT Microcredential AI-Data Science Dirjen Dikti</strong> program. The goal was simple: take the classic Titanic dataset and really understand what it takes to prepare messy real-world data for machine learning.</p>
+        <p style="margin-top: 12px;">The dataset had typical real-world problems:</p>
+        <ul style="margin-top: 8px; margin-left: 20px;">
+            <li><strong>Missing values everywhere</strong> — age, cabin, embarked, and more</li>
+            <li><strong>Duplicates lurking</strong> — 100 duplicate rows hiding in the data</li>
+            <li><strong>Outliers causing trouble</strong> — especially in fare and family size</li>
+            <li><strong>Mixed data types</strong> — categorical features that needed encoding</li>
+        </ul>`,
+
+        task: `<p>My job was to go through the <strong>full preprocessing pipeline</strong>:</p>
+        <ol style="margin-top: 8px; margin-left: 20px;">
+            <li><strong>Explore the data</strong> — understand distributions, spot patterns, find problems</li>
+            <li><strong>Clean things up</strong> — handle missing values, remove duplicates, fix outliers</li>
+            <li><strong>Run statistical tests</strong> — figure out which features actually matter for survival</li>
+            <li><strong>Prepare for ML</strong> — encode categories, normalize values, split features</li>
+        </ol>`,
+
+        // Code snippet
+        codeSnippet: {
+            title: 'Outlier Detection using IQR',
+            language: 'python',
+            code: `# Sorting and calculating quartiles
+sorted_data = merged_titanic.sort_values(by=['fare'])
+Q1 = sorted_data.fare.quantile(0.25)
+Q3 = sorted_data.fare.quantile(0.75)
+
+# IQR method for outlier detection
+IQR = Q3 - Q1
+lower_limit = Q1 - 1.5*IQR
+upper_limit = Q3 + 1.5*IQR
+
+# Detect outliers
+def detect_outliers(data):
+    outliers = []
+    for i in sorted_data.fare:
+        if i < lower_limit or i > upper_limit:
+            outliers.append(i)
+    return outliers
+
+fare_outliers = detect_outliers(sorted_data.fare)
+print(len(fare_outliers))  # Output: 171 outliers`
+        },
+
+        dataProcessing: [
+            '<strong>Data Exploration:</strong> Loaded 1,309 passenger records with 14 features. Used <code>describe()</code> and <code>info()</code> to understand the data profile — found that fare had crazy high std dev compared to mean',
+            '<strong>Duplicate Removal:</strong> Merged two datasets and found <strong>100 duplicate rows</strong>. Dropped them using <code>drop_duplicates()</code> to avoid bias in analysis',
+            '<strong>Missing Value Treatment:</strong> Age → filled with median, Embarked → filled with mode ("C"), Boat → filled with "None", and dropped columns with >70% missing (body, cabin)',
+            '<strong>Outlier Detection:</strong> Applied IQR method to numerical features. Found <strong>171 outliers in fare</strong> alone — passengers who paid way more than usual (likely first-class suites)',
+            '<strong>Feature Engineering:</strong> Dropped non-predictive columns (name, ticket, home.dest). Applied LabelEncoder to categorical features (sex, embarked, boat) for ML readiness'
+        ],
+
+        // Research findings - Chi-square test results
+        researchFindings: {
+            title: 'Chi-Square Test Results',
+            mainStat: 'p < 0.001',
+            mainLabel: 'Class strongly predicts survival',
+            findings: [
+                { percentage: '81.6', label: 'Chi² statistic (class vs survival)' },
+                { percentage: '28.1', label: 'Chi² statistic (embarked vs survival)' },
+                { percentage: '-0.30', label: 'Pearson correlation (class vs survival)' }
+            ],
+            quotes: [
+                '"Penumpang kelas 3 yang tidak survive mencapai 500 orang lebih"',
+                '"Southampton passengers had the lowest survival rate"',
+                '"Women and children first — the data shows it clearly"'
+            ]
+        },
+
+        actions: [
+            '<strong>Exploratory Data Analysis:</strong> Created count plots for categorical variables (pclass, sex, survived, embarked). Found that Class 3 had the most passengers but lowest survival rate — the "women and children first" policy was very real',
+            '<strong>Statistical Testing:</strong> Ran Chi-square tests to check relationships. <strong>Pclass vs survival: χ² = 81.6, p < 0.001</strong> — super significant! Also found that Southampton (S) embarkation port had the most casualties',
+            '<strong>Correlation Analysis:</strong> Built Pearson correlation matrix for numeric features. <strong>Fare positively correlated with survival (0.25)</strong> — money did help your chances on the Titanic',
+            '<strong>Outlier Handling:</strong> Used IQR and Z-score methods to detect outliers. Created boxplots to visualize — fare had the most extreme values. Documented options: drop, cap, or leave based on context',
+            '<strong>Normalization:</strong> Applied MinMaxScaler to bring all features to 0-1 range. This step is crucial for distance-based ML algorithms that would come next',
+            '<strong>Final Dataset:</strong> Cleaned data reduced from 1,309 to <strong>1,308 rows</strong> and from 14 to <strong>9 features</strong>. All columns non-null and ready for model training'
+        ],
+
+        // Preprocessing pipeline visualization
+        abTestResults: {
+            title: 'Data Quality Before vs After Cleaning',
+            control: { name: 'Before Cleaning', conversion: 14 },
+            treatment: { name: 'After Cleaning', conversion: 9 },
+            lift: '-36%',
+            pValue: 'features reduced',
+            stages: [
+                { name: 'Total Records', control: 1309, treatment: 1308, lift: '-1 row' },
+                { name: 'Features', control: 14, treatment: 9, lift: '-5 cols' },
+                { name: 'Missing Values', control: 3541, treatment: 0, lift: '-100%' },
+                { name: 'Duplicates', control: 100, treatment: 0, lift: '-100%' }
+            ]
+        },
+
+        resultHighlight: 'Clean dataset ready for ML with 0 missing values',
+        resultDescription: `<p>Successfully transformed messy Titanic data into ML-ready format:</p>
+        <ul style="margin-top: 8px; margin-left: 20px;">
+            <li><strong>All missing values handled:</strong> Strategic imputation using median/mode for meaningful features</li>
+            <li><strong>Outliers documented:</strong> 171 fare outliers identified with clear documentation for future handling</li>
+            <li><strong>Statistical insights gained:</strong> Passenger class is the strongest predictor (χ² = 81.6)</li>
+        </ul>
+        <p style="margin-top: 12px;"><strong>Key Takeaways:</strong></p>
+        <ul style="margin-top: 8px; margin-left: 20px;">
+            <li>First-class passengers had significantly higher survival rates</li>
+            <li>Fare amount correlates with survival — wealth literally saved lives</li>
+            <li>Southampton port had the most casualties (but also most passengers)</li>
+            <li>Proper preprocessing is 80% of the work in any ML project</li>
+        </ul>
+        <p style="margin-top: 12px;"><strong>Tools Used:</strong> Python, Pandas, NumPy, Matplotlib, Seaborn, Scipy, Scikit-learn (LabelEncoder, MinMaxScaler)</p>`
     }
 };
 
