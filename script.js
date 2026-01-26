@@ -74,6 +74,16 @@ const projectData = {
         title: 'DANA+ Onboarding Conversion Analysis',
         tags: ['Fintech', 'Mixpanel', 'A/B Testing', 'User Research', 'SQL', 'Python'],
 
+        // Role clarification
+        role: 'Product Data Analyst (metrics, funnel analysis, experiment evaluation)',
+
+        // TL;DR for quick scanning
+        tldr: [
+            'Identified early funnel drop-off via Mixpanel',
+            'Conducted 47 cold-call interviews to validate hypothesis',
+            'Improved conversion by +48.92% through A/B testing'
+        ],
+
         // Visual funnel chart
         funnelChart: {
             title: 'User Journey Funnel Analysis',
@@ -144,9 +154,9 @@ GROUP BY event_date;`
                 { percentage: '27%', label: 'Unclear on daily returns benefit' }
             ],
             quotes: [
-                '"Ooh berarti seperti investasi ya kak?"',
-                '"Jadi tabungan kayak deposito ya?"',
-                '"Bedanya sama saldo DANA saya yang biasa apa?"'
+                '"Oh, so it\'s like an investment?"',
+                '"Is this like a bank deposit?"',
+                '"What\'s the difference from my regular DANA balance?"'
             ]
         },
 
@@ -184,12 +194,22 @@ GROUP BY event_date;`
             <li>Conversational tone made the product feel less complicated</li>
             <li>Results backed our hypothesis: helping users understand the product first is key to conversion</li>
         </ul>
-        <p style="margin-top: 12px;"><strong>Business Impact:</strong> Recommendations were adopted for the full DANA+ rollout. Expected to bring in <strong>~15,000 more activations</strong> at scale.</p>`
+        <p style="margin-top: 12px;"><strong>Business Impact:</strong> Insights were used to prioritize onboarding redesign and validate rollout decisions. Recommendations were adopted for the full DANA+ rollout. Expected to bring in <strong>~15,000 more activations</strong> at scale.</p>`
     },
     'reksa-dana': {
         icon: '📈',
         title: 'Reksa Dana Onboarding Pre–Post Analysis',
         tags: ['Fintech', 'Mixpanel', 'Survey Research', 'A/B Testing', 'Benchmarking'],
+
+        // Role clarification
+        role: 'Product Data Analyst (survey research, benchmarking, A/B testing)',
+
+        // TL;DR for quick scanning
+        tldr: [
+            'Surveyed 850 users to understand drop-off reasons',
+            'Benchmarked 5 competitor apps for UX best practices',
+            'Achieved +25.26% increase in registration page opens'
+        ],
 
         // Key metrics cards
         keyMetrics: [
@@ -263,9 +283,9 @@ segmentation:
                 { percentage: '71%', label: 'Prefer time deposits over mutual funds' }
             ],
             quotes: [
-                '"Aku ga ngerti bedanya Obligasi sama Pasar Uang"',
-                '"Ini aman ga sih? Takut uangnya ilang"',
-                '"Kenapa harus pake ini? Mending nabung biasa aja"'
+                '"I don\'t understand the difference between Bonds and Money Market"',
+                '"Is this safe? I\'m afraid of losing my money"',
+                '"Why should I use this? Regular savings is better"'
             ]
         },
 
@@ -304,12 +324,22 @@ segmentation:
             <li>Straightforward information improves user confidence</li>
             <li>Educational content before fund selection reduces drop-off</li>
         </ul>
-        <p style="margin-top: 12px;"><strong>Recognition:</strong> Research report received <strong>praise from FS team</strong> for thorough details, benchmarks, and clear presentation. Adopted as template for future research.</p>`
+        <p style="margin-top: 12px;"><strong>Business Impact:</strong> Insights were used to guide product strategy and prioritize educational features. Research report received <strong>praise from FS team</strong> for thorough details, benchmarks, and clear presentation. Adopted as template for future research.</p>`
     },
     'asset-valuation': {
         icon: '🏢',
         title: 'Public Asset Valuation & Rental Analysis',
         tags: ['Public Sector', 'Power BI', 'Excel', 'Data Cleaning', 'Dashboard'],
+
+        // Role clarification
+        role: 'Business Intelligence Analyst (data consolidation, dashboard development)',
+
+        // TL;DR for quick scanning
+        tldr: [
+            'Consolidated 50,000+ asset records across 6 categories',
+            'Built 6+ Power BI dashboards for regional analysis',
+            'Reduced manual reporting effort by ~80%'
+        ],
 
         // Key metrics cards
         keyMetrics: [
@@ -398,6 +428,7 @@ summary = df.groupby(['provinsi', 'kabupaten']).agg({
         </ul>
         <p style="margin-top: 12px;"><strong>Business Impact:</strong></p>
         <ul style="margin-top: 8px; margin-left: 20px;">
+            <li>Insights were used to inform rental price policy decisions</li>
             <li>Reduced manual reporting effort by <strong>~80%</strong></li>
             <li>Enabled data-driven rental price negotiations</li>
             <li>Provided visibility into nationwide asset portfolio for the first time</li>
@@ -407,6 +438,16 @@ summary = df.groupby(['provinsi', 'kabupaten']).agg({
         icon: '⏱️',
         title: 'Operational SLA & Performance Monitoring',
         tags: ['Public Sector', 'Tableau', 'SQL', 'Dashboard', 'Performance Analytics'],
+
+        // Role clarification
+        role: 'Technical Data Analyst (SQL, data cleaning, Tableau dashboards)',
+
+        // TL;DR for quick scanning
+        tldr: [
+            'Analyzed 10,000+ service records for SLA compliance',
+            'Detected 338 anomalies and 81 duplicate entries',
+            'Enabled proactive SLA monitoring via Tableau dashboards'
+        ],
 
         // Key metrics cards
         keyMetrics: [
@@ -487,15 +528,26 @@ ORDER BY jumlah_laporan DESC;`
         </ul>
         <p style="margin-top: 12px;"><strong>Business Impact:</strong></p>
         <ul style="margin-top: 8px; margin-left: 20px;">
+            <li>Insights were used to optimize resource allocation during peak periods</li>
             <li>Reduced manual reporting effort significantly</li>
             <li>Enabled proactive SLA monitoring instead of reactive reporting</li>
             <li>Provided leadership with real-time visibility into service performance</li>
         </ul>`
     },
-    'titanic-survival': {
-        icon: '🚢',
-        title: 'Titanic Survival Analysis & Preprocessing',
-        tags: ['Python', 'Pandas', 'Seaborn', 'Scikit-learn', 'Statistical Analysis', 'Data Cleaning'],
+    'titanic-eda': {
+        icon: '🔍',
+        title: 'Exploratory Data Analysis on Passenger Survival Data',
+        tags: ['Python', 'Pandas', 'Seaborn', 'Statistical Analysis', 'Data Cleaning'],
+
+        // Role clarification
+        role: 'Data Analyst (data preprocessing, statistical analysis)',
+
+        // TL;DR for quick scanning
+        tldr: [
+            'Cleaned 1,300+ passenger records with 0 missing values',
+            'Identified passenger class as strongest survival predictor (χ² = 81.6)',
+            'Prepared ML-ready dataset with statistical validation'
+        ],
 
         // Key metrics cards
         keyMetrics: [
@@ -858,6 +910,23 @@ function openModal(project) {
     const tagsHtml = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
     const actionsHtml = project.actions.map(action => `<li>${action}</li>`).join('');
 
+    // TL;DR section (if available)
+    let tldrHtml = '';
+    if (project.tldr && project.tldr.length > 0) {
+        const tldrItems = project.tldr.map(item => `<li>${item}</li>`).join('');
+        tldrHtml = `
+        <div class="modal-section tldr-section">
+            <h4>⚡ TL;DR</h4>
+            <ul class="tldr-list">${tldrItems}</ul>
+        </div>`;
+    }
+
+    // Role section (if available)
+    let roleHtml = '';
+    if (project.role) {
+        roleHtml = `<p class="modal-role"><strong>My Role:</strong> ${project.role}</p>`;
+    }
+
     // Key Metrics Cards (if available)
     let keyMetricsHtml = '';
     if (project.keyMetrics && project.keyMetrics.length > 0) {
@@ -1043,8 +1112,11 @@ function openModal(project) {
         <div class="modal-header">
             <div class="modal-icon">${project.icon}</div>
             <h3>${project.title}</h3>
+            ${roleHtml}
             <div class="modal-tags">${tagsHtml}</div>
         </div>
+        
+        ${tldrHtml}
         
         ${keyMetricsHtml}
         
