@@ -130,7 +130,7 @@ const projectData = {
         tags: ['UX Research', 'Survey', 'Usability Testing', 'UX Copywriting'],
         role: 'User Experience Researcher',
         tldr: [
-            'Surveyed 2M users to evaluate DANA\\'s UX copy tone',
+            "Surveyed 2M users to evaluate DANA's UX copy tone",
             'Conducted UT to test tone resonance on specific features',
             'Achieved 100% alignment between UX Copy goals and user perception'
         ],
