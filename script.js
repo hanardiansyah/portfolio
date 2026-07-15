@@ -69,6 +69,107 @@ function initializeTabs() {
 
 // Project data for modal popups
 const projectData = {
+    'emas-research': {
+        icon: '🥇',
+        title: 'UX Research: Digital Gold (eMAS) Investment Strategy & Usability',
+        tags: ['Mixed-Methods', 'Usability Testing', 'Benchmarking', 'Survey', 'Card Sorting'],
+        role: 'User Experience Researcher (survey, usability testing, benchmarking)',
+        tldr: [
+            'Surveyed 2M+ users to understand investment barriers',
+            'Benchmarked competitors (Yahoo! Finance, Pluang) for UX best practices',
+            'Led card sorting and UT for homepage redesign, increasing transactions by 61K'
+        ],
+        keyMetrics: [
+            { label: 'Survey Sent', value: '2M+', icon: '📋' },
+            { label: 'Transaction Uplift', value: '+61K', icon: '📈' },
+            { label: 'UT & Sorting Users', value: '26', icon: '👥' },
+            { label: 'Competitors Analyzed', value: '3', icon: '🔍' }
+        ],
+        situation: `<p>DANA aims to improve the <strong>eMAS (Digital Gold Investment)</strong> feature. The mission is not just polishing up the interface design, but also learning about user behavior to boost the product's functionality and business potential.</p>
+        <p style="margin-top: 12px;">However, we needed to know:</p>
+        <ul style="margin-top: 8px; margin-left: 20px;">
+            <li>Why users were irregular in investing in gold</li>
+            <li>What crucial information users seek when investing</li>
+            <li>How users perceive the current homepage and promotions</li>
+        </ul>`,
+        task: `<p>As the <strong>UX Researcher</strong>, my objectives were to:</p>
+        <ol style="margin-top: 8px; margin-left: 20px;">
+            <li><strong>Analyze User Behavior</strong> — distribute a large-scale survey to understand investment habits</li>
+            <li><strong>Conduct Usability Testing</strong> — identify friction points in the current design</li>
+            <li><strong>Perform Card Sorting</strong> — restructure the information architecture of the homepage</li>
+            <li><strong>Benchmark Competitors</strong> — evaluate features against Yahoo! Finance, Investing.com, and Pluang</li>
+        </ol>`,
+        dataProcessing: [
+            '<strong>Quantitative Survey:</strong> Blasted survey via Push Notification to 2 million DANA users who use financial features. Analyzed results to find that 68% of users do not invest regularly primarily due to lack of funds, while 50.9% of regular investors purchase whenever balance permits.',
+            '<strong>Usability Testing:</strong> Executed UT with 5 experienced gold investors using Lookback. Discovered users were unaware of gold promotions (hidden in educational content) and confused by the "EP amount" (mistaken for a calculator rather than a purchase offer).',
+            '<strong>Card Sorting:</strong> Conducted moderated (Lookback) and unmoderated (Maze) card sorting with 21 users. Revealed that investment value, price charts, and buying & selling prices are the most critical information for the homepage.',
+            '<strong>Competitive Benchmarking:</strong> Compared features against Yahoo! Finance, Investing.com, and Pluang. Identified the need for comprehensive historical price charts, technical indicators, and customizable time frames.'
+        ],
+        actions: [
+            '<strong>Action Points Formulation:</strong> Based on user feedback and benchmark analysis, formulated a concrete redesign plan for the eMAS feature.',
+            '<strong>Information Architecture Redesign:</strong> Recommended moving promotional content to the upper part of the page and separating it from educational content.',
+            '<strong>Feature Restructuring:</strong> Moved "Physical Gold" CTA to the bottom, as it was not a primary concern for users.',
+            '<strong>Enhancing Analytics:</strong> Proposed integrating detailed historical price charts, customizable performance summaries, and technical indicators to match industry standards.'
+        ],
+        resultHighlight: '+61,375 increase in monthly transactions',
+        resultDescription: `<p>After implementing the enhancements derived from the research findings, we observed a significant improvement in user engagement:</p>
+        <ul style="margin-top: 8px; margin-left: 20px;">
+            <li><strong>Transaction Uplift:</strong> Increased from 842,211 (March) to 903,586 (April), a rise of 61,375 transactions.</li>
+            <li><strong>Enhanced Clarity:</strong> Addressed confusion regarding the EP amount and promotional visibility.</li>
+        </ul>
+        <p style="margin-top: 12px;"><strong>Key Insights:</strong></p>
+        <ul style="margin-top: 8px; margin-left: 20px;">
+            <li>Paying close attention to user feedback and "vibes" is essential for crafting user-friendly solutions.</li>
+            <li>Users prioritize immediate value (price charts, secure transactions, low purchase prices).</li>
+            <li>Clear and prominent promotional offers significantly capture user attention.</li>
+        </ul>`
+    },
+    'tone-and-voice': {
+        icon: '💬',
+        title: 'UX Research — App-solutely Clear: Unpacking Tone and Voice',
+        tags: ['UX Research', 'Survey', 'Usability Testing', 'UX Copywriting'],
+        role: 'User Experience Researcher',
+        tldr: [
+            'Surveyed 2M users to evaluate DANA\\'s UX copy tone',
+            'Conducted UT to test tone resonance on specific features',
+            'Achieved 100% alignment between UX Copy goals and user perception'
+        ],
+        keyMetrics: [
+            { label: 'Survey Sent', value: '2M users', icon: '📲' },
+            { label: 'UT Participants', value: '8 users', icon: '👤' },
+            { label: 'User Satisfaction', value: '91.5%', icon: '⭐' },
+            { label: 'Tone Alignment', value: '100%', icon: '🎯' }
+        ],
+        situation: `<p>This was a debut project as a UX Researcher at DANA Indonesia, partnering closely with a UX Copywriter. The mission was to sync up with UX Copy's intended tone vibes, check what users think about the current wording, hit the mark with power words, and see if users resonate with the communication style.</p>
+        <p style="margin-top: 12px;">The goal is to provide a guide for UX Copywriters to stay updated on trends and ensure valuable, clear information for users.</p>`,
+        task: `<p>The objectives were to:</p>
+        <ol style="margin-top: 8px; margin-left: 20px;">
+            <li><strong>Evaluate current tone:</strong> Understand what tone users think describes DANA overall</li>
+            <li><strong>Test specific features:</strong> Ask users to highlight friendly, conversational, or empathetic words on selected screens</li>
+            <li><strong>Assess power words:</strong> See if users focus on intended power words or other elements</li>
+            <li><strong>Map tone across products:</strong> Analyze sentence tones across different monetary and non-monetary features</li>
+        </ol>`,
+        dataProcessing: [
+            '<strong>Quantitative Survey:</strong> Blasted survey via Push Notification to 2 million users. Found that casual, formal, and fun are the most representative tones for the overall app. 91.5% of users were satisfied with the information, while dissatisfied users found sentences too formal or repetitive.',
+            '<strong>Usability Testing:</strong> Executed UT with 8 frequent users using Lookback. Tested specific cases like DANA Goals, where users agreed that friendly and casual sentences fit the fun feature perfectly.',
+            '<strong>Power Word Analysis:</strong> Discovered that some intended power words were ignored, as users focused more on the bold title texts.',
+            '<strong>Tone Mapping:</strong> Mapped analysis results into a radar chart. Found that DANA Paylater has the friendliest tone, DANA eMAS is the most conversational, and DANA Goals balances all three tones equally.'
+        ],
+        actions: [
+            '<strong>Tone Assessment:</strong> Asked users to rate features (e.g., DANA Goals) on a scale of 1 to 4 to find the suitable tone (casual, fun, and simple).',
+            '<strong>Data Synthesis:</strong> Analyzed how many sentence tones matched between UX Copywriter intent and user perception.',
+            '<strong>Workshop Facilitation:</strong> Conducted a workshop using research findings to set the official tone and voice guidelines for each monetary and non-monetary feature based on their specific nature.'
+        ],
+        resultHighlight: 'Tone of voice is 100% in line with UXC and users',
+        resultDescription: `<p>After making improvements based on the surveys, usability testing, and workshops:</p>
+        <ul style="margin-top: 8px; margin-left: 20px;">
+            <li><strong>Perfect Alignment:</strong> The tone of voice achieved 100% alignment between UX Copy intent and user perception.</li>
+            <li><strong>Consistent Messaging:</strong> Users stated that the information in DANA is consistent with its features.</li>
+            <li><strong>Improved Clarity:</strong> Users found the information straightforward and easy to understand.</li>
+        </ul>
+        <p style="margin-top: 12px;"><strong>Key Insights:</strong></p>
+        <p>Research isn't just about navigating features; it's about making sure users truly "get it" and feel connected. By tuning into user vibes, we can whip up solutions that are easy to use and genuinely helpful.</p>`
+    },
     'dana-plus': {
         icon: '📊',
         title: 'DANA+ Onboarding Conversion Analysis',
