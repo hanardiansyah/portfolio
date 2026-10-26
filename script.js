@@ -75,7 +75,7 @@ const projectData = {
         tags: ['Mixed-Methods', 'Usability Testing', 'Benchmarking', 'Survey', 'Card Sorting'],
         role: 'User Experience Researcher (survey, usability testing, benchmarking)',
         tldr: [
-            'Surveyed 2M+ users to understand investment barriers',
+            'Ran survey distributed to 2M+ users (financial feature users) to understand investment barriers',
             'Benchmarked competitors (Yahoo! Finance, Pluang) for UX best practices',
             'Led card sorting and UT for homepage redesign, increasing transactions by 61K'
         ],
@@ -160,7 +160,7 @@ const projectData = {
             '<strong>Data Synthesis:</strong> Analyzed how many sentence tones matched between UX Copywriter intent and user perception.',
             '<strong>Workshop Facilitation:</strong> Conducted a workshop using research findings to set the official tone and voice guidelines for each monetary and non-monetary feature based on their specific nature.'
         ],
-        resultHighlight: 'Tone of voice is 100% in line with UXC and users',
+        resultHighlight: '100% alignment between UX Copy intent and user perception across all tested features (5 participants, usability test + survey)',
         resultDescription: `<p>After making improvements based on the surveys, usability testing, and workshops:</p>
         <ul style="margin-top: 8px; margin-left: 20px;">
             <li><strong>Perfect Alignment:</strong> The tone of voice achieved 100% alignment between UX Copy intent and user perception.</li>
@@ -176,7 +176,7 @@ const projectData = {
         tags: ['Fintech', 'Mixpanel', 'A/B Testing', 'User Research', 'SQL', 'Python'],
 
         // Role clarification
-        role: 'Product Data Analyst (metrics, funnel analysis, experiment evaluation)',
+        role: 'UX Researcher (funnel analysis, user interviews, pre-post evaluation)',
 
         // TL;DR for quick scanning
         tldr: [
@@ -283,7 +283,7 @@ GROUP BY event_date;`
             ]
         },
 
-        resultHighlight: '+48.92% increase in registration page open rate',
+        resultHighlight: '+48.92% lift in registration page opens (pre-post evaluation)',
         resultDescription: `<p>The new DANA+ onboarding achieved <strong>statistically significant improvements</strong> (p < 0.05) across key funnel metrics:</p>
         <ul style="margin-top: 8px; margin-left: 20px;">
             <li><strong>Homepage → Registration Page:</strong> 19.61% → 25.67% (+31% lift)</li>
@@ -303,7 +303,7 @@ GROUP BY event_date;`
         tags: ['Fintech', 'Mixpanel', 'Survey Research', 'A/B Testing', 'Benchmarking'],
 
         // Role clarification
-        role: 'Product Data Analyst (survey research, benchmarking, A/B testing)',
+        role: 'UX Researcher (survey research, benchmarking, pre-post analysis)',
 
         // TL;DR for quick scanning
         tldr: [
@@ -413,7 +413,7 @@ segmentation:
             ]
         },
 
-        resultHighlight: '+25.26% increase in registration page open rate',
+        resultHighlight: '+25.26% lift in registration page opens (pre-post evaluation)',
         resultDescription: `<p>The new Reksa Dana onboarding showed <strong>real improvements</strong> in user engagement:</p>
         <ul style="margin-top: 8px; margin-left: 20px;">
             <li><strong>Registration Page Open:</strong> 23.81% → 25.24% (+6% lift)</li>
